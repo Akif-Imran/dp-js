@@ -4,8 +4,10 @@
  * @param target the value to get to.
  * @param values an array of values to choose from to generate the target.
  * @returns true if target can be reached, otherwise false.
- * Time: O(n * m) where n is the target value and m is the length of the values array.
- * Space: O(n)
+ * Time: O(n * m) => O(mn) where n is the target value and m is the length of the values array.
+ * Space: O(m)
+ * m: the target value
+ * n: the length of the values array
  */
 export const canSum = (target: number, values: number[]): boolean => {
   const table = Array(target + 1).fill(false);
