@@ -20,5 +20,5 @@ export const canSum = (target: number, values: number[]): boolean => {
   }
   console.log(table);
 
-  return false;
+  return table[target];
 };
