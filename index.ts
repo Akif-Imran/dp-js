@@ -1,6 +1,5 @@
 // snake-case represent memoization functions to solve the problem.
 //camel-case represents tabulation approach function to the same problem
-
 import { allConstruct, countConstruct } from "./src";
 
 // console.log(fib(8));
