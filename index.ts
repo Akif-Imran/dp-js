@@ -1,7 +1,7 @@
 // snake-case represent memoization functions to solve the problem.
 //camel-case represents tabulation approach function to the same problem
 
-import { countConstruct } from "./src";
+import { allConstruct, countConstruct } from "./src";
 
 // console.log(fib(8));
 // console.log(gridTraveler(5, 5));
@@ -16,10 +16,10 @@ import { countConstruct } from "./src";
 // console.log(bestSum(0, [2, 5, 3, 4, 7]));
 // console.log(bestSum(100, [1, 2, 5, 25]));
 // console.log(bestSum(100, [25, 1, 2, 5]));
-console.log(countConstruct("abcdef", ["ab", "abc", "cd", "def", "abcd"]));
-console.log(countConstruct("skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"]));
-console.log(countConstruct("purple", ["purp", "p", "ur", "le", "purpl"]));
-console.log(countConstruct("enterapotentpot", ["a", "p", "ent", "enter", "ot", "o", "t"]));
-console.log(
-  countConstruct("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef", ["e", "ee", "eee", "eeee", "eeeee", "eeeeee"])
-);
+console.log(allConstruct("", ["ab", "abc", "cd", "def", "abcd"]));
+console.log(allConstruct("abcdef", ["ab", "abc", "cd", "def", "abcd"]));
+console.log(allConstruct("abcdef", ["ab", "abc", "cd", "def", "abcd", "ef", "c"]));
+console.log(allConstruct("skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"]));
+console.log(allConstruct("purple", ["purp", "p", "ur", "le", "purpl"]));
+console.log(allConstruct("enterapotentpot", ["a", "p", "ent", "enter", "ot", "o", "t"]));
+console.log(allConstruct("eeeeeeeeeeeeef", ["e", "ee", "eee", "eeee", "eeeee", "eeeeee"]));
