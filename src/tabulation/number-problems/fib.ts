@@ -2,7 +2,8 @@
  * A function that calculates the nth fibonacci number using tabulation strategy.
  * @param n the position of fibonacci number to calculate.
  * @returns number that represents the fibonacci number at nth position.
- * Time: O(n), Space: O(n)
+ * Time: O(n)
+ * Space: O(n)
  */
 export const fib = (n: number): number => {
   if (n === 0) return 0;
