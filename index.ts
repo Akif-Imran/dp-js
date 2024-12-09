@@ -1,69 +1,76 @@
 // snake-case represent memoization functions to solve the problem.
 //camel-case represents tabulation approach function to the same problem
 
-const howSum = (
-  target: number,
+export const canSumFast = (
+  targetSum: number,
+  numbers: number[],
+  memo: Record<number, boolean> = {}
+) => {
+  if (targetSum in memo) return memo[targetSum];
+  if (targetSum === 0) return true;
+  for (let num of numbers) {
+    if (num > targetSum) continue;
+    const remainder = targetSum - num;
+    if (canSumFast(remainder, numbers, memo)) {
+      memo[targetSum] = true;
+      return true;
+    }
+  }
+  memo[targetSum] = false;
+  return false;
+};
+
+export const howSumFast = (
+  targetSum: number,
   numbers: number[],
   memo: Record<number, number[] | null> = {}
 ): number[] | null => {
-  if (target in memo) return memo[target];
-  if (target === 0) return [];
-
+  if (targetSum in memo) return memo[targetSum];
+  if (targetSum === 0) return [];
   for (let num of numbers) {
-    if (num > target) continue;
-    const remainder = target - num;
-    const result = howSum(remainder, numbers, memo);
-
-    if (result !== null) {
-      const combination = [num, ...result];
-      memo[target] = combination;
-      return combination;
+    if (num > targetSum) continue;
+    const combination = howSumFast(targetSum - num, numbers, memo);
+    if (combination !== null) {
+      const newCombination = [num, ...combination];
+      memo[targetSum] = newCombination;
+      return newCombination;
     }
   }
-
-  memo[target] = null;
+  memo[targetSum] = null;
   return null;
 };
 
-const howSum_tabulation = (target: number, numbers: number[]): number[] | null => {
-  const table = Array(target + 1).fill(null);
-  table[0] = [];
+export const bestSumFast = (
+  targetSum: number,
+  numbers: number[],
+  memo: Record<number, number[] | null> = {}
+): number[] | null => {
+  if (targetSum in memo) return memo[targetSum];
+  if (targetSum === 0) return [];
 
-  for (let i = 0; i <= target; i++) {
-    for (let num of numbers) {
-      if (table[i] === null) continue;
-      const index = i + num;
+  let shortestCombination: number[] | null = null;
 
-      if (index > target) continue;
-      table[index] = [...table[i], num];
+  for (let num of numbers) {
+    if (num > targetSum) continue;
+
+    const result = bestSumFast(targetSum - num, numbers, memo);
+    if (result !== null) {
+      const combination = [num, ...result];
+      if (shortestCombination === null || shortestCombination.length > combination.length) {
+        shortestCombination = combination;
+      }
     }
   }
 
-  return table[target];
+  memo[targetSum] = shortestCombination;
+  return shortestCombination;
 };
-
-const fib = (n: number, memo: Record<number, number> = {}): number => {
-  if (n in memo) return memo[n];
-  if (n <= 2) return 1;
-  memo[n] = fib(n - 1, memo) + fib(n - 2, memo);
-  return memo[n];
-};
-
-const fibTabulation = (n: number) => {
-  const table = Array.from({ length: n + 1 }, () => 0);
-  table[1] = 1;
-  for (let i = 1; i <= n; i++) {
-    if (i + 1 <= n) table[i + 1] += table[i];
-    if (i + 2 <= n) table[i + 2] += table[i];
-  }
-  return table[n];
-};
-console.log(fibTabulation(3));
+// console.log(fibTabulation(3));
 // console.log(gridTraveler(5, 5));
-// console.log(howSum_tabulation(7, [5, 3, 4, 7]));
-// console.log(howSum_tabulation(7, [2, 4])); //null
-// console.log(howSum_tabulation(8, [5, 3, 4, 7]));
-// console.log(howSum_tabulation(2, [5, 3, 4, 7])); //null
+console.log(bestSumFast(7, [5, 3, 4, 7]));
+console.log(bestSumFast(7, [2, 4])); //null
+console.log(bestSumFast(8, [5, 3, 4, 7]));
+console.log(bestSumFast(2, [5, 3, 4, 7])); //null
 // console.log(howSum_tabulation(7, [5, 3, 4, 7]));
 // console.log(howSum_tabulation(8, [2, 5, 3, 4, 7]));
 // console.log(howSum_tabulation(5, [2, 5, 3, 4, 7]));
@@ -72,7 +79,7 @@ console.log(fibTabulation(3));
 // console.log(howSum_tabulation(8, [2, 5, 3, 4, 7]));
 // console.log(howSum_tabulation(103, [1, 2, 5, 25]));
 // console.log(howSum_tabulation(100, [25, 1, 2, 5]));
-// console.log(howSum_tabulation(300, [7, 14]));
+console.log(howSumFast(300, [7, 14]));
 // console.log(allConstruct("", ["ab", "abc", "cd", "def", "abcd"]));
 // console.log(allConstruct("abcdef", ["ab", "abc", "cd", "def", "abcd"]));
 // console.log(allConstruct("abcdef", ["ab", "abc", "cd", "def", "abcd", "ef", "c"]));
